@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ThemeContext from "./Context/ThemeContext";
+import ThemeColor from "./Colors";
+import Header from "./Components/Header";
+import Hero from "./Components/Hero";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [themeHook, setThemeHook] = useState("light");
+  const currentTheme = ThemeColor[themeHook];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={[themeHook, setThemeHook]}>
+      <div
+        className={`h-screen ${currentTheme.backgroundColor} ${currentTheme.color}`}
+      >
+        <Header />
+        <Hero />
+      </div>
+    </ThemeContext.Provider>
   );
-}
+};
 
 export default App;
